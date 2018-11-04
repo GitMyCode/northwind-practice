@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Northwind2.Domain\Northwind2.Domain.csproj" />
+    <ProjectReference Include="..\Northwind2.Persistence\Northwind2.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="5.1.0" />
   </ItemGroup>
 
 </Project>
