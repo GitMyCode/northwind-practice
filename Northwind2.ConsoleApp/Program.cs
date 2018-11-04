@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Northwind2.Application.Customers.Commands.CreateCustomer;
 using Northwind2.Application.Customers.Queries.GetCustomerDetails;
+using Northwind2.Application.Exceptions;
 using Northwind2.Persistence;
 
 namespace Northwind2.ConsoleApp
@@ -72,13 +73,20 @@ namespace Northwind2.ConsoleApp
             //    ContactTitle = "Chose"
             //});
 
-            var model = await mediator.Send(new GetCustomerDetailQuery
+            try
             {
-                Id = "12345"
-            });
+                var model = await mediator.Send(new GetCustomerDetailQuery
+                {
+                    Id = "12344"
+                });
 
-            Console.WriteLine(JsonConvert.SerializeObject(model, Formatting.Indented));
-
+                Console.WriteLine(JsonConvert.SerializeObject(model, Formatting.Indented));
+            }
+            catch (NotFoundException e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
     }
 }
