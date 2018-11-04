@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Autofac;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Northwind2.Application.Customers.Commands.CreateCustomer;
+using Northwind2.Application.Customers.Queries.GetCustomerDetails;
 using Northwind2.Persistence;
 
 namespace Northwind2.ConsoleApp
@@ -58,17 +60,24 @@ namespace Northwind2.ConsoleApp
             var container = BuildContainer();
 
             var mediator = container.Resolve<IMediator>();
-            await mediator.Send(new CreateCustomerCommand
+            //await mediator.Send(new CreateCustomerCommand
+            //{
+            //    Id = "12345",
+            //    Address = "allo",
+            //    CompanyName = "company",
+            //    Country = "country",
+            //    Region = "region",
+            //    City = "sdsdf",
+            //    ContactName = "Moi",
+            //    ContactTitle = "Chose"
+            //});
+
+            var model = await mediator.Send(new GetCustomerDetailQuery
             {
-                Id = "12345",
-                Address = "allo",
-                CompanyName = "company",
-                Country = "country",
-                Region = "region",
-                City = "sdsdf",
-                ContactName = "Moi",
-                ContactTitle = "Chose"
+                Id = "12345"
             });
+
+            Console.WriteLine(JsonConvert.SerializeObject(model, Formatting.Indented));
 
         }
     }
